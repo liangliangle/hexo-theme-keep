@@ -1,0 +1,31 @@
+<%
+const {
+  server,
+  site
+} = theme.comment?.artalk
+let cdn_css = '//cdnjs.cloudflare.com/ajax/libs/artalk/2.7.3/Artalk.css'
+let cdn_js = '//cdnjs.cloudflare.com/ajax/libs/artalk/2.7.3/Artalk.js'
+%>
+<% if(server && site) { %>
+    <div class="artalk-comment-container">
+        <div id="artalk-container"></div>
+        <link rel="stylesheet" href="<%= cdn_css %>">
+        <script src="<%= cdn_js %>"></script>
+        <script >
+          function loadArtalk() {
+            Artalk.init({
+                el: '#artalk-container',
+                server: '<%= server %>',
+                site: '<%= site %>',
+            })
+          }
+
+
+          const loadArtalkTimeout = setTimeout(() => {
+              loadArtalk();
+              clearTimeout(loadArtalkTimeout);
+          }, 1000);
+
+        </script>
+    </div>
+<% } %>
